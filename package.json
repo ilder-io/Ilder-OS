@@ -5,6 +5,7 @@
   "description": "Ilder OS — the operating system for a personal brand.",
   "scripts": {
     "dev": "next dev",
+    "postinstall": "prisma generate",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
