@@ -1,0 +1,572 @@
+// ============================================================================
+// Ilder OS — Prisma Schema
+// ----------------------------------------------------------------------------
+// Design notes (read this before extending):
+//
+// 1. WORKSPACE-SCOPED MULTI-TENANCY
+//    Every domain model hangs off `Workspace`, not `User`, even though v1
+//    ships as a single-creator product. This is the one decision that is
+//    expensive to retrofit later: if Ilder OS ever supports a team around a
+//    creator (editor, VA, strategist) or multiple brands per person, the
+//    schema does not need to change — only the membership/role model does.
+//
+// 2. SOFT DOMAIN BOUNDARIES, ONE DATABASE
+//    Clean Architecture is enforced at the code layer (see ARCHITECTURE.md),
+//    not by physically splitting the database. Each feature owns a
+//    Repository that is the *only* code allowed to import PrismaClient for
+//    that model. The schema stays a single Postgres database because a
+//    creator's content, metrics, and OKRs are relationally connected
+//    (e.g. "which OKR did this sprint move?", "which content drove this
+//    quarter's follower growth?") and cross-module joins are a core feature,
+//    not an edge case.
+//
+// 3. METRICS ARE APPEND-ONLY SNAPSHOTS
+//    ContentMetricSnapshot is intentionally NOT a single mutable row per
+//    ContentItem. Every sync from a platform (TikTok/YouTube/IG/X API, or a
+//    manual entry) inserts a new snapshot. This is what makes "Views Growth"
+//    and "Retention over time" possible without a separate time-series
+//    store, and it's the same pattern AnalyticsSnapshot uses for
+//    account-level metrics (followers, etc).
+//
+// 4. AI INSIGHTS ARE STORED, NOT COMPUTED ON THE FLY
+//    AIInsight rows are the output of the insight engine (see
+//    src/features/ai-insights/engine). Storing them (with the metric window
+//    and confidence that produced them) means the UI never blocks on an LLM
+//    call, insights have a stable id to dismiss/pin/react to, and the engine
+//    can be swapped (rules-based today, LLM-assisted tomorrow) without any
+//    UI change.
+// ============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Identity & Workspace
+// ---------------------------------------------------------------------------
+
+model User {
+  id        String   @id @default(cuid())
+  clerkId   String   @unique
+  email     String   @unique
+  name      String?
+  imageUrl  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  memberships WorkspaceMember[]
+  ideas       Idea[]            @relation("IdeaAuthor")
+
+  @@map("users")
+}
+
+model Workspace {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  timezone  String   @default("UTC")
+  plan      Plan     @default(FREE)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  members         WorkspaceMember[]
+  contentItems    ContentItem[]
+  pillars         Pillar[]
+  series          Series[]
+  analyticsSnaps  AnalyticsSnapshot[]
+  objectives      Objective[]
+  quarters        Quarter[]
+  sprints         Sprint[]
+  weeklyReviews   WeeklyReview[]
+  monthlyReviews  MonthlyReview[]
+  products        Product[]
+  ideas           Idea[]
+  insights        AIInsight[]
+  knowledgeDocs   KnowledgeDoc[]
+  platformConnections PlatformConnection[]
+
+  @@map("workspaces")
+}
+
+model WorkspaceMember {
+  id          String        @id @default(cuid())
+  workspaceId String
+  userId      String
+  role        WorkspaceRole @default(OWNER)
+  createdAt   DateTime      @default(now())
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, userId])
+  @@map("workspace_members")
+}
+
+enum WorkspaceRole {
+  OWNER
+  ADMIN
+  EDITOR
+  VIEWER
+}
+
+enum Plan {
+  FREE
+  PRO
+  STUDIO
+}
+
+// ---------------------------------------------------------------------------
+// Content Module
+// ---------------------------------------------------------------------------
+
+model Pillar {
+  id          String  @id @default(cuid())
+  workspaceId String
+  name        String
+  color       String  @default("#6E6FF3")
+  description String?
+
+  workspace    Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  contentItems ContentItem[]
+
+  @@unique([workspaceId, name])
+  @@map("pillars")
+}
+
+model Series {
+  id          String  @id @default(cuid())
+  workspaceId String
+  name        String
+  description String?
+
+  workspace    Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  contentItems ContentItem[]
+
+  @@unique([workspaceId, name])
+  @@map("series")
+}
+
+enum Platform {
+  YOUTUBE
+  YOUTUBE_SHORTS
+  TIKTOK
+  INSTAGRAM_REEL
+  INSTAGRAM_POST
+  X
+  LINKEDIN
+  NEWSLETTER
+  PODCAST
+  BLOG
+}
+
+enum ContentStatus {
+  IDEA
+  SCRIPTING
+  FILMING
+  EDITING
+  SCHEDULED
+  PUBLISHED
+  ARCHIVED
+}
+
+model ContentItem {
+  id          String        @id @default(cuid())
+  workspaceId String
+  title       String
+  platform    Platform
+  status      ContentStatus @default(IDEA)
+  publishedAt DateTime?
+  scheduledAt DateTime?
+
+  pillarId String?
+  seriesId String?
+
+  hook          String?
+  cta           String?
+  script        String?
+  durationSecs  Int?
+  thumbnailUrl  String?
+
+  /// External platform id (e.g. a TikTok video id) — set when this item was
+  /// created or matched by a platform sync job, so re-syncing updates the
+  /// same row instead of duplicating it. Null for manually-created items.
+  externalId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  workspace Workspace             @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  pillar    Pillar?               @relation(fields: [pillarId], references: [id])
+  series    Series?               @relation(fields: [seriesId], references: [id])
+  metrics   ContentMetricSnapshot[]
+
+  @@unique([workspaceId, platform, externalId])
+  @@index([workspaceId, status])
+  @@index([workspaceId, platform])
+  @@index([workspaceId, publishedAt])
+  @@map("content_items")
+}
+
+/// Append-only. One row per sync/manual-update. Latest-by-contentId+capturedAt
+/// is "current"; the full series powers growth & retention-over-time charts.
+model ContentMetricSnapshot {
+  id            String   @id @default(cuid())
+  contentItemId String
+  capturedAt    DateTime @default(now())
+
+  views              Int   @default(0)
+  likes              Int   @default(0)
+  comments           Int   @default(0)
+  shares             Int   @default(0)
+  saves              Int   @default(0)
+  followersGenerated Int   @default(0)
+  watchTimeMinutes   Float @default(0)
+  retentionPct       Float?  // 0-100, avg % of video watched
+  profileVisits      Int   @default(0)
+  conversionRatePct  Float? // profileVisits -> followersGenerated, 0-100
+
+  contentItem ContentItem @relation(fields: [contentItemId], references: [id], onDelete: Cascade)
+
+  @@index([contentItemId, capturedAt])
+  @@map("content_metric_snapshots")
+}
+
+// ---------------------------------------------------------------------------
+// Analytics Module (account-level, platform-wide)
+// ---------------------------------------------------------------------------
+
+/// Daily account-level snapshot per platform: followers, totals. Same
+/// append-only pattern as ContentMetricSnapshot, one level up.
+model AnalyticsSnapshot {
+  id          String   @id @default(cuid())
+  workspaceId String
+  platform    Platform
+  capturedAt  DateTime @default(now())
+
+  followers     Int   @default(0)
+  totalViews    Int   @default(0)
+  totalLikes    Int   @default(0)
+  engagementPct Float?
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId, platform, capturedAt])
+  @@map("analytics_snapshots")
+}
+
+// ---------------------------------------------------------------------------
+// OKRs & Quarter Planning
+// ---------------------------------------------------------------------------
+
+model Quarter {
+  id          String   @id @default(cuid())
+  workspaceId String
+  year        Int
+  quarter     Int      // 1-4
+  theme       String?
+  startsAt    DateTime
+  endsAt      DateTime
+
+  workspace  Workspace   @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  objectives Objective[]
+  sprints    Sprint[]
+
+  @@unique([workspaceId, year, quarter])
+  @@map("quarters")
+}
+
+enum OKRStatus {
+  NOT_STARTED
+  ON_TRACK
+  AT_RISK
+  OFF_TRACK
+  COMPLETED
+}
+
+model Objective {
+  id          String    @id @default(cuid())
+  workspaceId String
+  quarterId   String
+  title       String
+  description String?
+  status      OKRStatus @default(NOT_STARTED)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  workspace  Workspace   @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  quarter    Quarter     @relation(fields: [quarterId], references: [id], onDelete: Cascade)
+  keyResults KeyResult[]
+
+  @@index([workspaceId, quarterId])
+  @@map("objectives")
+}
+
+model KeyResult {
+  id           String    @id @default(cuid())
+  objectiveId  String
+  title        String
+  targetValue  Float
+  currentValue Float     @default(0)
+  unit         String    @default("%") // "%", "followers", "$", "videos"...
+  status       OKRStatus @default(NOT_STARTED)
+
+  objective Objective @relation(fields: [objectiveId], references: [id], onDelete: Cascade)
+
+  @@map("key_results")
+}
+
+// ---------------------------------------------------------------------------
+// Sprint Planning
+// ---------------------------------------------------------------------------
+
+enum SprintStatus {
+  PLANNED
+  ACTIVE
+  COMPLETED
+}
+
+model Sprint {
+  id          String       @id @default(cuid())
+  workspaceId String
+  quarterId   String?
+  name        String
+  goal        String
+  hypothesis  String?
+  startsAt    DateTime
+  endsAt      DateTime
+  status      SprintStatus @default(PLANNED)
+  results     String?
+  learnings   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  workspace   Workspace    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  quarter     Quarter?     @relation(fields: [quarterId], references: [id])
+  tasks       SprintTask[]
+  metrics     SprintMetric[]
+  actionItems ActionItem[]
+
+  @@index([workspaceId, status])
+  @@map("sprints")
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  DONE
+  BLOCKED
+}
+
+model SprintTask {
+  id       String     @id @default(cuid())
+  sprintId String
+  title    String
+  status   TaskStatus @default(TODO)
+  order    Int        @default(0)
+
+  sprint Sprint @relation(fields: [sprintId], references: [id], onDelete: Cascade)
+
+  @@index([sprintId])
+  @@map("sprint_tasks")
+}
+
+model SprintMetric {
+  id       String @id @default(cuid())
+  sprintId String
+  label    String
+  target   String
+  actual   String?
+
+  sprint Sprint @relation(fields: [sprintId], references: [id], onDelete: Cascade)
+
+  @@map("sprint_metrics")
+}
+
+model ActionItem {
+  id       String   @id @default(cuid())
+  sprintId String
+  title    String
+  done     Boolean  @default(false)
+  dueAt    DateTime?
+
+  sprint Sprint @relation(fields: [sprintId], references: [id], onDelete: Cascade)
+
+  @@map("action_items")
+}
+
+// ---------------------------------------------------------------------------
+// Weekly / Monthly Review
+// ---------------------------------------------------------------------------
+
+model WeeklyReview {
+  id          String   @id @default(cuid())
+  workspaceId String
+  weekStart   DateTime
+  wins        String?
+  challenges  String?
+  focusNext   String?
+  createdAt   DateTime @default(now())
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, weekStart])
+  @@map("weekly_reviews")
+}
+
+model MonthlyReview {
+  id          String   @id @default(cuid())
+  workspaceId String
+  monthStart  DateTime
+  summary     String?
+  highlights  String?
+  lowlights   String?
+  nextFocus   String?
+  createdAt   DateTime @default(now())
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, monthStart])
+  @@map("monthly_reviews")
+}
+
+// ---------------------------------------------------------------------------
+// Products & Ideas Backlog
+// ---------------------------------------------------------------------------
+
+enum ProductStatus {
+  CONCEPT
+  BUILDING
+  LIVE
+  SUNSET
+}
+
+model Product {
+  id          String        @id @default(cuid())
+  workspaceId String
+  name        String
+  description String?
+  status      ProductStatus @default(CONCEPT)
+  priceCents  Int?
+  mrr Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@map("products")
+}
+
+enum IdeaStatus {
+  INBOX
+  SHORTLISTED
+  IN_PROGRESS
+  SHIPPED
+  DISCARDED
+}
+
+model Idea {
+  id          String     @id @default(cuid())
+  workspaceId String
+  authorId    String?
+  title       String
+  notes       String?
+  status      IdeaStatus @default(INBOX)
+  impact      Int        @default(2) // 1-5
+  effort      Int        @default(2) // 1-5
+  createdAt   DateTime   @default(now())
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  author    User?     @relation("IdeaAuthor", fields: [authorId], references: [id])
+
+  @@index([workspaceId, status])
+  @@map("ideas")
+}
+
+// ---------------------------------------------------------------------------
+// AI Insights
+// ---------------------------------------------------------------------------
+
+enum InsightCategory {
+  CONTENT
+  AUDIENCE
+  GROWTH
+  CONVERSION
+  TIMING
+  RISK
+}
+
+model AIInsight {
+  id          String          @id @default(cuid())
+  workspaceId String
+  category    InsightCategory
+  headline    String
+  detail      String
+  confidence  Float           @default(0.7) // 0-1
+  metricDelta Float?          // e.g. +0.31 for "+31%"
+  sourceModel String          @default("rules-engine@v1")
+  pinned      Boolean         @default(false)
+  dismissedAt DateTime?
+  createdAt   DateTime        @default(now())
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId, category])
+  @@map("ai_insights")
+}
+
+// ---------------------------------------------------------------------------
+// Knowledge Base
+// ---------------------------------------------------------------------------
+
+model KnowledgeDoc {
+  id          String   @id @default(cuid())
+  workspaceId String
+  title       String
+  content     String
+  tags        String[] @default([])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId])
+  @@map("knowledge_docs")
+}
+
+// ---------------------------------------------------------------------------
+// Platform Connections (OAuth) — see ROADMAP.md "Platform integrations"
+// ---------------------------------------------------------------------------
+
+/// One row per connected creator account (e.g. one TikTok account). Tokens
+/// are encrypted at rest (AES-256-GCM, see src/lib/core/crypto.ts) — this
+/// column never holds a usable token in plaintext, only ciphertext.
+model PlatformConnection {
+  id          String   @id @default(cuid())
+  workspaceId String
+  platform    Platform
+
+  /// The platform's own user/account id (e.g. TikTok's open_id) — lets a
+  /// re-connect detect "same account" vs "different account".
+  externalAccountId String
+
+  accessTokenEnc  String
+  refreshTokenEnc String?
+  tokenExpiresAt  DateTime?
+
+  lastSyncedAt DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, platform])
+  @@map("platform_connections")
+}

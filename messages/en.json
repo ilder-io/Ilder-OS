@@ -1,0 +1,484 @@
+{
+  "common": {
+    "language": "Language",
+    "jumpToModule": "Jump to a module…",
+    "noResults": "No results.",
+    "searchPlaceholder": "Search or jump to…",
+    "notifications": "Notifications",
+    "vsLastPeriod": "vs last period",
+    "close": "Close"
+  },
+  "nav": {
+    "sections": {
+      "core": "Workspace",
+      "planning": "Planning",
+      "growth": "Growth",
+      "system": "System"
+    },
+    "dashboard": "Dashboard",
+    "content": "Content",
+    "analytics": "Analytics",
+    "aiInsights": "AI Insights",
+    "okrs": "OKRs",
+    "quarterPlanning": "Quarter Planning",
+    "sprints": "Sprints",
+    "weeklyReview": "Weekly Review",
+    "monthlyReview": "Monthly Review",
+    "products": "Products",
+    "ideasBacklog": "Ideas Backlog",
+    "knowledgeBase": "Knowledge Base",
+    "settings": "Settings"
+  },
+  "status": {
+    "platform": {
+      "YOUTUBE": "YouTube",
+      "YOUTUBE_SHORTS": "YouTube Shorts",
+      "TIKTOK": "TikTok",
+      "INSTAGRAM_REEL": "Instagram Reel",
+      "INSTAGRAM_POST": "Instagram Post",
+      "X": "X",
+      "LINKEDIN": "LinkedIn",
+      "NEWSLETTER": "Newsletter",
+      "PODCAST": "Podcast",
+      "BLOG": "Blog"
+    },
+    "content": {
+      "IDEA": "Idea",
+      "SCRIPTING": "Scripting",
+      "FILMING": "Filming",
+      "EDITING": "Editing",
+      "SCHEDULED": "Scheduled",
+      "PUBLISHED": "Published",
+      "ARCHIVED": "Archived"
+    },
+    "okr": {
+      "NOT_STARTED": "Not started",
+      "ON_TRACK": "On track",
+      "AT_RISK": "At risk",
+      "OFF_TRACK": "Off track",
+      "COMPLETED": "Completed"
+    },
+    "sprint": {
+      "PLANNED": "Planned",
+      "ACTIVE": "Active",
+      "COMPLETED": "Completed"
+    },
+    "idea": {
+      "INBOX": "Inbox",
+      "SHORTLISTED": "Shortlisted",
+      "IN_PROGRESS": "In progress",
+      "SHIPPED": "Shipped",
+      "DISCARDED": "Discarded"
+    },
+    "product": {
+      "CONCEPT": "Concept",
+      "BUILDING": "Building",
+      "LIVE": "Live",
+      "SUNSET": "Sunset"
+    },
+    "task": {
+      "TODO": "To do",
+      "IN_PROGRESS": "In progress",
+      "BLOCKED": "Blocked",
+      "DONE": "Done"
+    },
+    "insightCategory": {
+      "CONTENT": "Content",
+      "AUDIENCE": "Audience",
+      "GROWTH": "Growth",
+      "CONVERSION": "Conversion",
+      "TIMING": "Timing",
+      "RISK": "Risk"
+    }
+  },
+  "dashboard": {
+    "pageTitle": "Dashboard",
+    "greeting": "Good to see you back",
+    "greetingDescription": "Here's where the brand stands today, across content, growth, and execution.",
+    "statFollowers": "Followers",
+    "statViews90d": "Views (90d)",
+    "statAvgEngagement": "Avg engagement",
+    "statMRR": "MRR",
+    "recentContent": "Recent content",
+    "viewAll": "View all",
+    "activeSprint": "Active sprint",
+    "tasksComplete": "{done}/{total} tasks complete",
+    "viewSprint": "View sprint",
+    "quarterOkrsTitle": "{label} OKRs",
+    "viewAllObjectives": "View all objectives",
+    "topAiInsights": "Top AI insights",
+    "viewAllInsights": "View all insights"
+  },
+  "content": {
+    "pageTitle": "Content",
+    "pageDescription": "Every piece of content across every platform — script to published performance.",
+    "newContent": "New content",
+    "searchPlaceholder": "Search content…",
+    "platformPlaceholder": "Platform",
+    "statusPlaceholder": "Status",
+    "pillarPlaceholder": "Pillar",
+    "allPlatforms": "All platforms",
+    "allStatuses": "All statuses",
+    "allPillars": "All pillars",
+    "tableView": "Table view",
+    "gridView": "Grid view",
+    "emptyTitle": "No content matches these filters",
+    "emptyDescriptionShort": "Try widening your filters.",
+    "emptyDescriptionLong": "Try widening your filters, or create a new content item to get started.",
+    "viewsCount": "{count} views",
+    "backToContent": "Back to content",
+    "hook": "Hook",
+    "cta": "Call to action",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirmDelete": "Delete this content item? This can't be undone.",
+    "toastDeleted": "Content item deleted",
+    "pagination": "Page {page} of {pageCount} · {count} items",
+    "columns": {
+      "title": "Title",
+      "platform": "Platform",
+      "status": "Status",
+      "published": "Published",
+      "views": "Views",
+      "retention": "Retention",
+      "followers": "Followers"
+    },
+    "form": {
+      "editTitle": "Edit content item",
+      "newTitle": "New content item",
+      "description": "Capture the idea now — script and metrics can follow later.",
+      "titleLabel": "Title",
+      "titlePlaceholder": "5 Git commands that saved my career",
+      "platformLabel": "Platform",
+      "statusLabel": "Status",
+      "pillarLabel": "Pillar",
+      "pillarPlaceholder": "Coding Tutorials",
+      "durationLabel": "Duration (seconds)",
+      "seriesLabel": "Series",
+      "seriesPlaceholder": "Optional — e.g. Ship It Weekly",
+      "hookLabel": "Hook",
+      "hookPlaceholder": "The first line that stops the scroll…",
+      "ctaLabel": "Call to action",
+      "ctaPlaceholder": "Follow for part 2",
+      "scriptLabel": "Script / outline",
+      "scriptPlaceholder": "Beat-by-beat outline…",
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "saveChanges": "Save changes",
+      "create": "Create content item",
+      "toastUpdated": "Content item updated",
+      "toastCreated": "Content item created",
+      "toastError": "Something went wrong. Try again."
+    },
+    "metrics": {
+      "views": "Views",
+      "likes": "Likes",
+      "comments": "Comments",
+      "shares": "Shares",
+      "saves": "Saves",
+      "followersGenerated": "Followers gained",
+      "watchTimeMinutes": "Watch time",
+      "retentionPct": "Retention",
+      "profileVisits": "Profile visits",
+      "conversionRatePct": "Conversion rate",
+      "watchTimeValue": "{value} min"
+    }
+  },
+  "analytics": {
+    "pageTitle": "Analytics",
+    "pageDescription": "The full performance picture across every platform, updated daily.",
+    "statFollowers": "Followers",
+    "statViews90d": "Views (90d)",
+    "statAvgEngagement": "Avg engagement",
+    "statAvgRetention": "Avg retention",
+    "growth": {
+      "title": "Growth over time",
+      "description": "90-day trend across the metrics that actually move the business.",
+      "tabs": {
+        "followers": "Followers",
+        "views": "Views",
+        "engagement": "Engagement",
+        "retention": "Retention",
+        "watchtime": "Watch time"
+      }
+    },
+    "distribution": {
+      "pillarTitle": "Best performing topics",
+      "pillarDescription": "Average views by content pillar.",
+      "durationTitle": "Best duration",
+      "durationDescription": "Average retention by video length."
+    },
+    "heatmap": {
+      "title": "Best publishing time",
+      "description": "Relative engagement score by day and hour published (last 90 days)."
+    },
+    "bestVideos": {
+      "title": "Best videos",
+      "description": "Highest retention, published content."
+    },
+    "worstVideos": {
+      "title": "Worst videos",
+      "description": "Lowest retention — candidates for a format rethink."
+    },
+    "topHooks": {
+      "title": "Top hooks",
+      "description": "Ranked by followers generated."
+    },
+    "topCtas": {
+      "title": "Top CTAs",
+      "description": "Ranked by profile visits driven."
+    },
+    "topSeries": {
+      "title": "Top series",
+      "description": "Ranked by total views across episodes.",
+      "meta": "{count} episodes · +{followers} followers"
+    }
+  },
+  "okrs": {
+    "pageTitle": "OKRs",
+    "pageDescription": "Objectives and key results, rolled up by quarter.",
+    "newObjective": "New objective",
+    "previousQuarters": "Previous quarters",
+    "krProgress": "{current} / {target} {unit}",
+    "summary": "{onTrack}/{total} objectives on track · {keyResults} key results",
+    "deleteObjective": "Delete objective",
+    "confirmDeleteObjective": "Delete this objective and all its key results? This can't be undone.",
+    "toastObjectiveDeleted": "Objective deleted",
+    "deleteKr": "Delete key result",
+    "confirmDeleteKr": "Delete this key result? This can't be undone.",
+    "toastKrDeleted": "Key result deleted",
+    "noQuartersYetTitle": "No quarters yet",
+    "noQuartersYetDescription": "Create a quarter first, then objectives can hang off it.",
+    "goToQuarterPlanning": "Go to Quarter Planning",
+    "form": {
+      "title": "New objective",
+      "description": "Set the objective, then break it into measurable key results.",
+      "titleLabel": "Title",
+      "titlePlaceholder": "Become the go-to channel for practical Git education",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "What does winning this look like?",
+      "quarterLabel": "Quarter",
+      "keyResultsLabel": "Key results",
+      "addKeyResult": "Add key result",
+      "removeKeyResult": "Remove key result",
+      "krTitlePlaceholder": "Key result",
+      "krTargetPlaceholder": "Target",
+      "krUnitPlaceholder": "Unit",
+      "cancel": "Cancel",
+      "creating": "Creating…",
+      "create": "Create objective",
+      "toastCreated": "Objective created",
+      "toastError": "Something went wrong. Try again."
+    }
+  },
+  "quarterPlanning": {
+    "pageTitle": "Quarter Planning",
+    "pageDescription": "Set the theme for the quarter, then let objectives and sprints hang off it.",
+    "objectivesCount": "{count} objectives",
+    "newQuarter": "New quarter",
+    "delete": "Delete quarter",
+    "confirmDelete": "Delete this quarter? Its objectives and key results go with it, and any linked sprints become unassigned. This can't be undone.",
+    "toastDeleted": "Quarter deleted",
+    "noObjectives": "No objectives yet.",
+    "sprintsInQuarter": "Sprints in this quarter",
+    "noQuarters": "No quarters yet — create one to start planning.",
+    "unassignedSprintsHeading": "Sprints not assigned to a quarter",
+    "form": {
+      "title": "New quarter",
+      "description": "Set the year, quarter, and theme — dates are calculated automatically.",
+      "yearLabel": "Year",
+      "quarterLabel": "Quarter",
+      "themeLabel": "Theme",
+      "themePlaceholder": "Depth over breadth — fewer platforms, better retention",
+      "cancel": "Cancel",
+      "creating": "Creating…",
+      "create": "Create quarter",
+      "toastCreated": "Quarter created",
+      "toastDuplicate": "That quarter already exists.",
+      "toastError": "Something went wrong. Try again."
+    }
+  },
+  "sprints": {
+    "pageTitle": "Sprints",
+    "pageDescription": "Two-week execution cycles: a goal, a hypothesis, and an honest retro.",
+    "newSprint": "New sprint",
+    "backToSprints": "Back to sprints",
+    "tasksCount": "{done}/{total} tasks",
+    "goal": "Goal",
+    "hypothesis": "Hypothesis",
+    "tasks": "Tasks",
+    "metrics": "Metrics",
+    "results": "Results",
+    "learnings": "Learnings",
+    "actionItems": "Action items",
+    "delete": "Delete sprint",
+    "confirmDelete": "Delete this sprint? This can't be undone.",
+    "toastDeleted": "Sprint deleted",
+    "board": {
+      "addPlaceholder": "Add a task…",
+      "add": "Add",
+      "addError": "Couldn't add the task. Try again.",
+      "moveError": "Couldn't save that move. Refreshing…",
+      "deleteError": "Couldn't delete the task. Refreshing…",
+      "drag": "Drag to move",
+      "deleteTask": "Delete task"
+    },
+    "form": {
+      "title": "New sprint",
+      "description": "Two weeks, one goal, one hypothesis to test.",
+      "nameLabel": "Name",
+      "namePlaceholder": "Sprint 15 — Newsletter growth push",
+      "goalLabel": "Goal",
+      "goalPlaceholder": "What does this sprint need to accomplish?",
+      "hypothesisLabel": "Hypothesis",
+      "hypothesisPlaceholder": "If we do X, then Y will happen because…",
+      "startsLabel": "Starts",
+      "endsLabel": "Ends",
+      "quarterLabel": "Quarter",
+      "noQuarter": "No quarter",
+      "cancel": "Cancel",
+      "creating": "Creating…",
+      "create": "Create sprint",
+      "toastCreated": "Sprint created",
+      "toastError": "Something went wrong. Try again."
+    }
+  },
+  "weeklyReview": {
+    "pageTitle": "Weekly Review",
+    "pageDescription": "Wins, challenges, and next week's focus — five minutes, every week.",
+    "newReview": "New review",
+    "wins": "Wins",
+    "challenges": "Challenges",
+    "focusNext": "Focus next"
+  },
+  "monthlyReview": {
+    "pageTitle": "Monthly Review",
+    "pageDescription": "Zoom out. What actually moved the business this month?",
+    "newReview": "New review",
+    "highlights": "Highlights",
+    "lowlights": "Lowlights",
+    "nextFocus": "Next focus"
+  },
+  "products": {
+    "pageTitle": "Products",
+    "pageDescription": "Everything you sell beyond content: courses, templates, coaching, sponsorships.",
+    "newProduct": "New product",
+    "statMRR": "Monthly recurring revenue",
+    "statLive": "Live products",
+    "statBuilding": "In development",
+    "mrrValue": "${value} MRR",
+    "delete": "Delete product",
+    "confirmDelete": "Delete this product? This can't be undone.",
+    "toastDeleted": "Product deleted",
+    "form": {
+      "title": "New product",
+      "description": "Anything you sell beyond content — course, template, coaching, sponsorship.",
+      "nameLabel": "Name",
+      "namePlaceholder": "Git Mastery Cohort",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "What is it, who is it for?",
+      "statusLabel": "Status",
+      "priceLabel": "Price ($)",
+      "mrrLabel": "MRR ($)",
+      "cancel": "Cancel",
+      "creating": "Creating…",
+      "create": "Create product",
+      "toastCreated": "Product created",
+      "toastError": "Something went wrong. Try again."
+    }
+  },
+  "ideas": {
+    "pageTitle": "Ideas Backlog",
+    "pageDescription": "Capture everything, prioritize with intention, ship the top-left quadrant.",
+    "newIdea": "New idea",
+    "delete": "Delete idea",
+    "confirmDelete": "Delete this idea? This can't be undone.",
+    "toastDeleted": "Idea deleted",
+    "matrix": {
+      "title": "Impact vs. effort",
+      "description": "Top-left quadrant is the queue: high impact, low effort.",
+      "effort": "Effort",
+      "impact": "Impact",
+      "effortAxis": "Effort →",
+      "impactAxis": "Impact →"
+    },
+    "form": {
+      "title": "New idea",
+      "description": "Capture it now, prioritize it later.",
+      "titleLabel": "Title",
+      "titlePlaceholder": "Second channel for pure long-form tutorials",
+      "notesLabel": "Notes",
+      "notesPlaceholder": "Why this, why now…",
+      "impactLabel": "Impact (1-5)",
+      "effortLabel": "Effort (1-5)",
+      "cancel": "Cancel",
+      "creating": "Creating…",
+      "create": "Create idea",
+      "toastCreated": "Idea created",
+      "toastError": "Something went wrong. Try again."
+    }
+  },
+  "aiInsights": {
+    "pageTitle": "AI Insights",
+    "pageDescription": "Patterns pulled straight from your content and analytics data — no manual digging.",
+    "confidence": "{pct}% confidence · {source}",
+    "emptyTitle": "Not enough data yet",
+    "emptyDescription": "Publish a few more content items with metrics logged and insights will start surfacing here automatically."
+  },
+  "knowledgeBase": {
+    "pageTitle": "Knowledge Base",
+    "pageDescription": "The playbooks, checklists, and standards that keep quality consistent as you scale.",
+    "newDoc": "New doc"
+  },
+  "settings": {
+    "pageTitle": "Settings",
+    "pageDescription": "Workspace, plan, and how Ilder OS connects to the rest of your stack.",
+    "tabs": {
+      "general": "General",
+      "members": "Members",
+      "integrations": "Integrations",
+      "billing": "Billing"
+    },
+    "general": {
+      "workspaceTitle": "Workspace",
+      "workspaceDescription": "Your workspace is the container for every module — content, OKRs, sprints.",
+      "workspaceNameLabel": "Workspace name",
+      "timezoneLabel": "Timezone",
+      "timezoneEastern": "Eastern Time",
+      "timezonePacific": "Pacific Time",
+      "timezoneLondon": "London",
+      "languageLabel": "Language",
+      "saveChanges": "Save changes"
+    },
+    "members": {
+      "title": "Members",
+      "description": "Everyone with access to this workspace, and what they can do.",
+      "you": "You",
+      "ownerFullAccess": "Owner · full access",
+      "owner": "Owner",
+      "invite": "Invite a member"
+    },
+    "integrations": {
+      "title": "Connected platforms",
+      "description": "Where content and metrics sync from. Manual entry always works as a fallback.",
+      "connect": "Connect",
+      "tiktok": {
+        "connect": "Connect",
+        "connected": "Connected",
+        "syncNow": "Sync now",
+        "syncing": "Syncing…",
+        "lastSynced": "Last synced {date}",
+        "neverSynced": "Connected — not synced yet",
+        "syncSuccess": "Synced {count} videos from TikTok",
+        "syncError": "Sync failed. Try again.",
+        "connectSuccess": "TikTok connected.",
+        "connectError": "Couldn't connect TikTok ({error})."
+      }
+    },
+    "billing": {
+      "title": "Plan",
+      "freePlanDescription": "You're on the Free plan.",
+      "upgrade": "Upgrade to Pro"
+    }
+  }
+}

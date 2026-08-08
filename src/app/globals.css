@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Ilder OS token system — dark by default (no light theme in v1; the class
+  hook exists for a future light mode but is intentionally unstyled so we
+  don't ship a half-finished second theme).
+
+  Palette (named):
+    --ink        #09090B   base background
+    --charcoal   #131316   surface / cards
+    --graphite   #1B1B1F   raised surface (modals, popovers, hovered rows)
+    --steel      #232329   borders / dividers
+    --fog        #9A9AA6   secondary text
+    --paper      #F3F3F6   primary text
+    --signal     #6E6FF3   accent — the one color of intent in the whole app
+*/
+
+@layer base {
+  :root {
+    --background: 240 6% 4%;
+    --foreground: 240 20% 96%;
+
+    --surface: 240 6% 7%;
+    --surface-raised: 240 7% 10%;
+
+    --card: 240 6% 7%;
+    --card-foreground: 240 20% 96%;
+    --popover: 240 7% 9%;
+    --popover-foreground: 240 20% 96%;
+
+    --primary: 243 82% 68%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 6% 13%;
+    --secondary-foreground: 240 15% 92%;
+
+    --muted: 240 6% 13%;
+    --muted-foreground: 240 6% 62%;
+
+    --accent: 240 6% 14%;
+    --accent-foreground: 240 15% 96%;
+
+    --destructive: 0 72% 63%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 152 55% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 55%;
+    --warning-foreground: 30 40% 10%;
+
+    --border: 240 6% 15%;
+    --input: 240 6% 15%;
+    --ring: 243 82% 68%;
+
+    --pillar-1: 243 82% 68%;
+    --pillar-2: 172 60% 45%;
+    --pillar-3: 38 92% 55%;
+    --pillar-4: 340 75% 62%;
+    --pillar-5: 200 85% 58%;
+
+    --radius: 0.625rem;
+
+    --font-sans: "Inter", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv11", "ss01";
+  }
+  ::selection {
+    background-color: hsl(var(--primary) / 0.35);
+  }
+
+  /* Tabular, evenly-spaced numerals wherever data is displayed — the
+     dashboard's quiet signature. Applied via the `.font-mono` utility. */
+  .font-mono {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+
+  /* Visible keyboard focus everywhere, styled instead of suppressed. */
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-secondary rounded-full;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.4) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.4) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .shimmer-bg {
+    background: linear-gradient(
+      100deg,
+      hsl(var(--secondary)) 30%,
+      hsl(var(--accent)) 50%,
+      hsl(var(--secondary)) 70%
+    );
+    background-size: 200% 100%;
+  }
+}

@@ -1,0 +1,484 @@
+{
+  "common": {
+    "language": "Idioma",
+    "jumpToModule": "Ir a un módulo…",
+    "noResults": "Sin resultados.",
+    "searchPlaceholder": "Buscar o ir a…",
+    "notifications": "Notificaciones",
+    "vsLastPeriod": "vs. periodo anterior",
+    "close": "Cerrar"
+  },
+  "nav": {
+    "sections": {
+      "core": "Espacio de trabajo",
+      "planning": "Planificación",
+      "growth": "Crecimiento",
+      "system": "Sistema"
+    },
+    "dashboard": "Panel de control",
+    "content": "Contenido",
+    "analytics": "Análisis",
+    "aiInsights": "Análisis de IA",
+    "okrs": "OKR",
+    "quarterPlanning": "Planificación trimestral",
+    "sprints": "Sprints",
+    "weeklyReview": "Revisión semanal",
+    "monthlyReview": "Revisión mensual",
+    "products": "Productos",
+    "ideasBacklog": "Lista de ideas",
+    "knowledgeBase": "Base de conocimiento",
+    "settings": "Configuración"
+  },
+  "status": {
+    "platform": {
+      "YOUTUBE": "YouTube",
+      "YOUTUBE_SHORTS": "YouTube Shorts",
+      "TIKTOK": "TikTok",
+      "INSTAGRAM_REEL": "Reel de Instagram",
+      "INSTAGRAM_POST": "Publicación de Instagram",
+      "X": "X",
+      "LINKEDIN": "LinkedIn",
+      "NEWSLETTER": "Boletín",
+      "PODCAST": "Podcast",
+      "BLOG": "Blog"
+    },
+    "content": {
+      "IDEA": "Idea",
+      "SCRIPTING": "Guion",
+      "FILMING": "Grabación",
+      "EDITING": "Edición",
+      "SCHEDULED": "Programado",
+      "PUBLISHED": "Publicado",
+      "ARCHIVED": "Archivado"
+    },
+    "okr": {
+      "NOT_STARTED": "Sin comenzar",
+      "ON_TRACK": "En curso",
+      "AT_RISK": "En riesgo",
+      "OFF_TRACK": "Fuera de curso",
+      "COMPLETED": "Completado"
+    },
+    "sprint": {
+      "PLANNED": "Planificado",
+      "ACTIVE": "Activo",
+      "COMPLETED": "Completado"
+    },
+    "idea": {
+      "INBOX": "Bandeja de entrada",
+      "SHORTLISTED": "Preseleccionada",
+      "IN_PROGRESS": "En progreso",
+      "SHIPPED": "Lanzada",
+      "DISCARDED": "Descartada"
+    },
+    "product": {
+      "CONCEPT": "Concepto",
+      "BUILDING": "En desarrollo",
+      "LIVE": "En vivo",
+      "SUNSET": "Descontinuado"
+    },
+    "task": {
+      "TODO": "Por hacer",
+      "IN_PROGRESS": "En progreso",
+      "BLOCKED": "Bloqueada",
+      "DONE": "Hecha"
+    },
+    "insightCategory": {
+      "CONTENT": "Contenido",
+      "AUDIENCE": "Audiencia",
+      "GROWTH": "Crecimiento",
+      "CONVERSION": "Conversión",
+      "TIMING": "Momento",
+      "RISK": "Riesgo"
+    }
+  },
+  "dashboard": {
+    "pageTitle": "Panel de control",
+    "greeting": "Qué bueno verte de nuevo",
+    "greetingDescription": "Así está la marca hoy, en contenido, crecimiento y ejecución.",
+    "statFollowers": "Seguidores",
+    "statViews90d": "Visualizaciones (90d)",
+    "statAvgEngagement": "Interacción promedio",
+    "statMRR": "Ingresos recurrentes",
+    "recentContent": "Contenido reciente",
+    "viewAll": "Ver todo",
+    "activeSprint": "Sprint activo",
+    "tasksComplete": "{done}/{total} tareas completadas",
+    "viewSprint": "Ver sprint",
+    "quarterOkrsTitle": "OKR de {label}",
+    "viewAllObjectives": "Ver todos los objetivos",
+    "topAiInsights": "Principales análisis de IA",
+    "viewAllInsights": "Ver todos los análisis"
+  },
+  "content": {
+    "pageTitle": "Contenido",
+    "pageDescription": "Cada pieza de contenido en cada plataforma — del guion al rendimiento publicado.",
+    "newContent": "Nuevo contenido",
+    "searchPlaceholder": "Buscar contenido…",
+    "platformPlaceholder": "Plataforma",
+    "statusPlaceholder": "Estado",
+    "pillarPlaceholder": "Pilar",
+    "allPlatforms": "Todas las plataformas",
+    "allStatuses": "Todos los estados",
+    "allPillars": "Todos los pilares",
+    "tableView": "Vista de tabla",
+    "gridView": "Vista de cuadrícula",
+    "emptyTitle": "Ningún contenido coincide con estos filtros",
+    "emptyDescriptionShort": "Prueba ampliando tus filtros.",
+    "emptyDescriptionLong": "Prueba ampliando tus filtros, o crea un nuevo elemento de contenido para empezar.",
+    "viewsCount": "{count} visualizaciones",
+    "backToContent": "Volver a contenido",
+    "hook": "Gancho",
+    "cta": "Llamada a la acción",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "confirmDelete": "¿Eliminar este elemento de contenido? No se puede deshacer.",
+    "toastDeleted": "Elemento de contenido eliminado",
+    "pagination": "Página {page} de {pageCount} · {count} elementos",
+    "columns": {
+      "title": "Título",
+      "platform": "Plataforma",
+      "status": "Estado",
+      "published": "Publicado",
+      "views": "Visualizaciones",
+      "retention": "Retención",
+      "followers": "Seguidores"
+    },
+    "form": {
+      "editTitle": "Editar elemento de contenido",
+      "newTitle": "Nuevo elemento de contenido",
+      "description": "Captura la idea ahora — el guion y las métricas pueden llegar después.",
+      "titleLabel": "Título",
+      "titlePlaceholder": "5 comandos de Git que salvaron mi carrera",
+      "platformLabel": "Plataforma",
+      "statusLabel": "Estado",
+      "pillarLabel": "Pilar",
+      "pillarPlaceholder": "Tutoriales de código",
+      "durationLabel": "Duración (segundos)",
+      "seriesLabel": "Serie",
+      "seriesPlaceholder": "Opcional — ej. Ship It Weekly",
+      "hookLabel": "Gancho",
+      "hookPlaceholder": "La primera línea que detiene el scroll…",
+      "ctaLabel": "Llamada a la acción",
+      "ctaPlaceholder": "Sigue para la parte 2",
+      "scriptLabel": "Guion / esquema",
+      "scriptPlaceholder": "Esquema paso a paso…",
+      "cancel": "Cancelar",
+      "saving": "Guardando…",
+      "saveChanges": "Guardar cambios",
+      "create": "Crear elemento de contenido",
+      "toastUpdated": "Elemento de contenido actualizado",
+      "toastCreated": "Elemento de contenido creado",
+      "toastError": "Algo salió mal. Intenta de nuevo."
+    },
+    "metrics": {
+      "views": "Visualizaciones",
+      "likes": "Me gusta",
+      "comments": "Comentarios",
+      "shares": "Compartidos",
+      "saves": "Guardados",
+      "followersGenerated": "Seguidores generados",
+      "watchTimeMinutes": "Tiempo de visualización",
+      "retentionPct": "Retención",
+      "profileVisits": "Visitas al perfil",
+      "conversionRatePct": "Tasa de conversión",
+      "watchTimeValue": "{value} min"
+    }
+  },
+  "analytics": {
+    "pageTitle": "Análisis",
+    "pageDescription": "El panorama completo de rendimiento en cada plataforma, actualizado a diario.",
+    "statFollowers": "Seguidores",
+    "statViews90d": "Visualizaciones (90d)",
+    "statAvgEngagement": "Interacción promedio",
+    "statAvgRetention": "Retención promedio",
+    "growth": {
+      "title": "Crecimiento en el tiempo",
+      "description": "Tendencia de 90 días en las métricas que realmente mueven el negocio.",
+      "tabs": {
+        "followers": "Seguidores",
+        "views": "Visualizaciones",
+        "engagement": "Interacción",
+        "retention": "Retención",
+        "watchtime": "Tiempo de visualización"
+      }
+    },
+    "distribution": {
+      "pillarTitle": "Temas con mejor rendimiento",
+      "pillarDescription": "Promedio de visualizaciones por pilar de contenido.",
+      "durationTitle": "Mejor duración",
+      "durationDescription": "Retención promedio según la duración del video."
+    },
+    "heatmap": {
+      "title": "Mejor hora de publicación",
+      "description": "Puntaje de interacción relativo por día y hora de publicación (últimos 90 días)."
+    },
+    "bestVideos": {
+      "title": "Mejores videos",
+      "description": "Contenido publicado con mayor retención."
+    },
+    "worstVideos": {
+      "title": "Peores videos",
+      "description": "Menor retención — candidatos a repensar el formato."
+    },
+    "topHooks": {
+      "title": "Mejores ganchos",
+      "description": "Ordenados por seguidores generados."
+    },
+    "topCtas": {
+      "title": "Mejores llamadas a la acción",
+      "description": "Ordenadas por visitas al perfil generadas."
+    },
+    "topSeries": {
+      "title": "Mejores series",
+      "description": "Ordenadas por visualizaciones totales entre episodios.",
+      "meta": "{count} episodios · +{followers} seguidores"
+    }
+  },
+  "okrs": {
+    "pageTitle": "OKR",
+    "pageDescription": "Objetivos y resultados clave, agrupados por trimestre.",
+    "newObjective": "Nuevo objetivo",
+    "previousQuarters": "Trimestres anteriores",
+    "krProgress": "{current} / {target} {unit}",
+    "summary": "{onTrack}/{total} objetivos en curso · {keyResults} resultados clave",
+    "deleteObjective": "Eliminar objetivo",
+    "confirmDeleteObjective": "¿Eliminar este objetivo y todos sus resultados clave? No se puede deshacer.",
+    "toastObjectiveDeleted": "Objetivo eliminado",
+    "deleteKr": "Eliminar resultado clave",
+    "confirmDeleteKr": "¿Eliminar este resultado clave? No se puede deshacer.",
+    "toastKrDeleted": "Resultado clave eliminado",
+    "noQuartersYetTitle": "Todavía no hay trimestres",
+    "noQuartersYetDescription": "Crea un trimestre primero, y luego los objetivos podrán organizarse a partir de él.",
+    "goToQuarterPlanning": "Ir a Planificación trimestral",
+    "form": {
+      "title": "Nuevo objetivo",
+      "description": "Define el objetivo y luego divídelo en resultados clave medibles.",
+      "titleLabel": "Título",
+      "titlePlaceholder": "Convertirse en el canal de referencia de educación práctica sobre Git",
+      "descriptionLabel": "Descripción",
+      "descriptionPlaceholder": "¿Cómo se ve ganar esto?",
+      "quarterLabel": "Trimestre",
+      "keyResultsLabel": "Resultados clave",
+      "addKeyResult": "Agregar resultado clave",
+      "removeKeyResult": "Quitar resultado clave",
+      "krTitlePlaceholder": "Resultado clave",
+      "krTargetPlaceholder": "Meta",
+      "krUnitPlaceholder": "Unidad",
+      "cancel": "Cancelar",
+      "creating": "Creando…",
+      "create": "Crear objetivo",
+      "toastCreated": "Objetivo creado",
+      "toastError": "Algo salió mal. Intenta de nuevo."
+    }
+  },
+  "quarterPlanning": {
+    "pageTitle": "Planificación trimestral",
+    "pageDescription": "Define el tema del trimestre y deja que objetivos y sprints se organicen a partir de él.",
+    "objectivesCount": "{count} objetivos",
+    "newQuarter": "Nuevo trimestre",
+    "delete": "Eliminar trimestre",
+    "confirmDelete": "¿Eliminar este trimestre? Sus objetivos y resultados clave se eliminan con él, y los sprints vinculados quedan sin asignar. No se puede deshacer.",
+    "toastDeleted": "Trimestre eliminado",
+    "noObjectives": "Todavía no hay objetivos.",
+    "sprintsInQuarter": "Sprints de este trimestre",
+    "noQuarters": "Todavía no hay trimestres — crea uno para empezar a planificar.",
+    "unassignedSprintsHeading": "Sprints sin trimestre asignado",
+    "form": {
+      "title": "Nuevo trimestre",
+      "description": "Define el año, el trimestre y el tema — las fechas se calculan automáticamente.",
+      "yearLabel": "Año",
+      "quarterLabel": "Trimestre",
+      "themeLabel": "Tema",
+      "themePlaceholder": "Profundidad sobre amplitud — menos plataformas, mejor retención",
+      "cancel": "Cancelar",
+      "creating": "Creando…",
+      "create": "Crear trimestre",
+      "toastCreated": "Trimestre creado",
+      "toastDuplicate": "Ese trimestre ya existe.",
+      "toastError": "Algo salió mal. Intenta de nuevo."
+    }
+  },
+  "sprints": {
+    "pageTitle": "Sprints",
+    "pageDescription": "Ciclos de ejecución de dos semanas: un objetivo, una hipótesis y una retro honesta.",
+    "newSprint": "Nuevo sprint",
+    "backToSprints": "Volver a sprints",
+    "tasksCount": "{done}/{total} tareas",
+    "goal": "Objetivo",
+    "hypothesis": "Hipótesis",
+    "tasks": "Tareas",
+    "metrics": "Métricas",
+    "results": "Resultados",
+    "learnings": "Aprendizajes",
+    "actionItems": "Elementos de acción",
+    "delete": "Eliminar sprint",
+    "confirmDelete": "¿Eliminar este sprint? No se puede deshacer.",
+    "toastDeleted": "Sprint eliminado",
+    "board": {
+      "addPlaceholder": "Agregar una tarea…",
+      "add": "Agregar",
+      "addError": "No se pudo agregar la tarea. Intenta de nuevo.",
+      "moveError": "No se pudo guardar ese movimiento. Actualizando…",
+      "deleteError": "No se pudo eliminar la tarea. Actualizando…",
+      "drag": "Arrastrar para mover",
+      "deleteTask": "Eliminar tarea"
+    },
+    "form": {
+      "title": "Nuevo sprint",
+      "description": "Dos semanas, un objetivo, una hipótesis por probar.",
+      "nameLabel": "Nombre",
+      "namePlaceholder": "Sprint 15 — Impulso de crecimiento del boletín",
+      "goalLabel": "Objetivo",
+      "goalPlaceholder": "¿Qué debe lograr este sprint?",
+      "hypothesisLabel": "Hipótesis",
+      "hypothesisPlaceholder": "Si hacemos X, entonces pasará Y porque…",
+      "startsLabel": "Inicio",
+      "endsLabel": "Fin",
+      "quarterLabel": "Trimestre",
+      "noQuarter": "Sin trimestre",
+      "cancel": "Cancelar",
+      "creating": "Creando…",
+      "create": "Crear sprint",
+      "toastCreated": "Sprint creado",
+      "toastError": "Algo salió mal. Intenta de nuevo."
+    }
+  },
+  "weeklyReview": {
+    "pageTitle": "Revisión semanal",
+    "pageDescription": "Logros, desafíos y el enfoque de la próxima semana — cinco minutos, cada semana.",
+    "newReview": "Nueva revisión",
+    "wins": "Logros",
+    "challenges": "Desafíos",
+    "focusNext": "Enfoque siguiente"
+  },
+  "monthlyReview": {
+    "pageTitle": "Revisión mensual",
+    "pageDescription": "Mira el panorama general. ¿Qué movió realmente el negocio este mes?",
+    "newReview": "Nueva revisión",
+    "highlights": "Aspectos destacados",
+    "lowlights": "Aspectos débiles",
+    "nextFocus": "Próximo enfoque"
+  },
+  "products": {
+    "pageTitle": "Productos",
+    "pageDescription": "Todo lo que vendes más allá del contenido: cursos, plantillas, coaching, patrocinios.",
+    "newProduct": "Nuevo producto",
+    "statMRR": "Ingresos recurrentes mensuales",
+    "statLive": "Productos en vivo",
+    "statBuilding": "En desarrollo",
+    "mrrValue": "${value} MRR",
+    "delete": "Eliminar producto",
+    "confirmDelete": "¿Eliminar este producto? No se puede deshacer.",
+    "toastDeleted": "Producto eliminado",
+    "form": {
+      "title": "Nuevo producto",
+      "description": "Cualquier cosa que vendas más allá del contenido — curso, plantilla, coaching, patrocinio.",
+      "nameLabel": "Nombre",
+      "namePlaceholder": "Cohorte Dominando Git",
+      "descriptionLabel": "Descripción",
+      "descriptionPlaceholder": "¿Qué es, para quién es?",
+      "statusLabel": "Estado",
+      "priceLabel": "Precio ($)",
+      "mrrLabel": "Ingresos recurrentes ($)",
+      "cancel": "Cancelar",
+      "creating": "Creando…",
+      "create": "Crear producto",
+      "toastCreated": "Producto creado",
+      "toastError": "Algo salió mal. Intenta de nuevo."
+    }
+  },
+  "ideas": {
+    "pageTitle": "Lista de ideas",
+    "pageDescription": "Captura todo, prioriza con intención, lanza el cuadrante superior izquierdo.",
+    "newIdea": "Nueva idea",
+    "delete": "Eliminar idea",
+    "confirmDelete": "¿Eliminar esta idea? No se puede deshacer.",
+    "toastDeleted": "Idea eliminada",
+    "matrix": {
+      "title": "Impacto vs. esfuerzo",
+      "description": "El cuadrante superior izquierdo es la cola: alto impacto, bajo esfuerzo.",
+      "effort": "Esfuerzo",
+      "impact": "Impacto",
+      "effortAxis": "Esfuerzo →",
+      "impactAxis": "Impacto →"
+    },
+    "form": {
+      "title": "Nueva idea",
+      "description": "Captúrala ahora, priorízala después.",
+      "titleLabel": "Título",
+      "titlePlaceholder": "Segundo canal para tutoriales largos puros",
+      "notesLabel": "Notas",
+      "notesPlaceholder": "Por qué esto, por qué ahora…",
+      "impactLabel": "Impacto (1-5)",
+      "effortLabel": "Esfuerzo (1-5)",
+      "cancel": "Cancelar",
+      "creating": "Creando…",
+      "create": "Crear idea",
+      "toastCreated": "Idea creada",
+      "toastError": "Algo salió mal. Intenta de nuevo."
+    }
+  },
+  "aiInsights": {
+    "pageTitle": "Análisis de IA",
+    "pageDescription": "Patrones extraídos directamente de tus datos de contenido y análisis — sin buscar manualmente.",
+    "confidence": "{pct}% de confianza · {source}",
+    "emptyTitle": "Aún no hay suficientes datos",
+    "emptyDescription": "Publica algunos elementos de contenido más con métricas registradas y los análisis empezarán a aparecer aquí automáticamente."
+  },
+  "knowledgeBase": {
+    "pageTitle": "Base de conocimiento",
+    "pageDescription": "Los manuales, checklists y estándares que mantienen la calidad consistente a medida que creces.",
+    "newDoc": "Nuevo documento"
+  },
+  "settings": {
+    "pageTitle": "Configuración",
+    "pageDescription": "Espacio de trabajo, plan, y cómo Ilder OS se conecta con el resto de tu stack.",
+    "tabs": {
+      "general": "General",
+      "members": "Miembros",
+      "integrations": "Integraciones",
+      "billing": "Facturación"
+    },
+    "general": {
+      "workspaceTitle": "Espacio de trabajo",
+      "workspaceDescription": "Tu espacio de trabajo es el contenedor de cada módulo — contenido, OKR, sprints.",
+      "workspaceNameLabel": "Nombre del espacio de trabajo",
+      "timezoneLabel": "Zona horaria",
+      "timezoneEastern": "Hora del Este",
+      "timezonePacific": "Hora del Pacífico",
+      "timezoneLondon": "Londres",
+      "languageLabel": "Idioma",
+      "saveChanges": "Guardar cambios"
+    },
+    "members": {
+      "title": "Miembros",
+      "description": "Todos los que tienen acceso a este espacio de trabajo, y qué pueden hacer.",
+      "you": "Tú",
+      "ownerFullAccess": "Propietario · acceso completo",
+      "owner": "Propietario",
+      "invite": "Invitar a un miembro"
+    },
+    "integrations": {
+      "title": "Plataformas conectadas",
+      "description": "De dónde se sincronizan el contenido y las métricas. La entrada manual siempre funciona como respaldo.",
+      "connect": "Conectar",
+      "tiktok": {
+        "connect": "Conectar",
+        "connected": "Conectado",
+        "syncNow": "Sincronizar ahora",
+        "syncing": "Sincronizando…",
+        "lastSynced": "Última sincronización {date}",
+        "neverSynced": "Conectado — aún sin sincronizar",
+        "syncSuccess": "Se sincronizaron {count} videos de TikTok",
+        "syncError": "Falló la sincronización. Intenta de nuevo.",
+        "connectSuccess": "TikTok conectado.",
+        "connectError": "No se pudo conectar TikTok ({error})."
+      }
+    },
+    "billing": {
+      "title": "Plan",
+      "freePlanDescription": "Estás en el plan Gratis.",
+      "upgrade": "Mejorar a Pro"
+    }
+  }
+}
