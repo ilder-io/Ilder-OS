@@ -524,6 +524,7 @@
       "tiktok": {
         "connect": "Connect",
         "connected": "Connected",
+        "reconnect": "Reconnect",
         "syncNow": "Sync now",
         "syncing": "Syncing…",
         "lastSynced": "Last synced {date}",

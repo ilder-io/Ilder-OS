@@ -44,9 +44,14 @@ export function TikTokIntegrationRow({ status }: { status: PlatformConnectionSta
         )}
       </div>
       {status.connected ? (
-        <Button variant="outline" size="sm" disabled={syncing} onClick={onSync}>
-          {syncing ? t("syncing") : t("syncNow")}
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button variant="ghost" size="sm" asChild>
+            <a href="/api/integrations/tiktok/connect">{t("reconnect")}</a>
+          </Button>
+          <Button variant="outline" size="sm" disabled={syncing} onClick={onSync}>
+            {syncing ? t("syncing") : t("syncNow")}
+          </Button>
+        </div>
       ) : (
         <Button variant="outline" size="sm" asChild>
           <a href="/api/integrations/tiktok/connect">{t("connect")}</a>
