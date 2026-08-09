@@ -22,8 +22,16 @@ export const authAppearance = {
     fontFamily: "var(--font-sans)",
   },
   elements: {
-    rootBox: "w-full",
-    card: "w-full bg-transparent shadow-none border-none p-0 gap-5",
+    rootBox: "!w-full",
+    // Clerk's own stylesheet fixes cardBox at width:400px (its default
+    // standalone-page size) — a plain `w-full` class loses that specificity
+    // fight, so the box overflows our card and gets clipped by its
+    // `overflow-hidden`, looking like a second, half-visible panel. `!w-full`
+    // forces the override.
+    cardBox: "!w-full !max-w-full",
+    card: "!w-full bg-transparent shadow-none border-none p-0 gap-5",
+    main: "!w-full",
+    form: "!w-full",
     headerTitle: "hidden",
     headerSubtitle: "hidden",
     socialButtonsBlockButton:
