@@ -530,6 +530,7 @@
         "neverSynced": "Connected — not synced yet",
         "syncSuccess": "Synced {count} videos from TikTok",
         "syncError": "Sync failed. Try again.",
+        "statsError": "Videos synced, but couldn't fetch follower/like stats: {error}",
         "connectSuccess": "TikTok connected.",
         "connectError": "Couldn't connect TikTok ({error})."
       }

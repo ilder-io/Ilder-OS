@@ -24,6 +24,9 @@ export function TikTokIntegrationRow({ status }: { status: PlatformConnectionSta
       return;
     }
     toast.success(t("syncSuccess", { count: body.data.synced }));
+    if (body.data.statsError) {
+      toast.warning(t("statsError", { error: body.data.statsError }));
+    }
     router.refresh();
   }
 

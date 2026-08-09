@@ -10,6 +10,12 @@ export interface SyncResult {
   created: number;
   updated: number;
   synced: number;
+  /** Set when content synced fine but the account-stats call failed — most
+   *  often a scope TikTok hasn't approved for this app yet (`user.info.stats`
+   *  requires production review, unlike sandbox where every scope is
+   *  auto-granted). Surfaced instead of thrown so a missing "nice to have"
+   *  stat doesn't block the content sync that already succeeded. */
+  statsError?: string;
 }
 
 /**
@@ -60,9 +66,14 @@ export async function syncPlatformConnection(workspaceId: string, slug: string):
     cursor = contentPage.nextCursor;
   }
 
-  const stats = await adapter.fetchAccountStats(accessToken);
-  await analyticsService.recordSnapshot(workspaceId, adapter.platform, stats);
+  let statsError: string | undefined;
+  try {
+    const stats = await adapter.fetchAccountStats(accessToken);
+    await analyticsService.recordSnapshot(workspaceId, adapter.platform, stats);
+  } catch (err) {
+    statsError = err instanceof Error ? err.message : "Failed to fetch account stats.";
+  }
 
   await integrationsService.markSynced(workspaceId, adapter.platform);
-  return { created, updated, synced: created + updated };
+  return { created, updated, synced: created + updated, ...(statsError ? { statsError } : {}) };
 }

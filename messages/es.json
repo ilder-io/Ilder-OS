@@ -530,6 +530,7 @@
         "neverSynced": "Conectado — aún sin sincronizar",
         "syncSuccess": "Se sincronizaron {count} videos de TikTok",
         "syncError": "Falló la sincronización. Intenta de nuevo.",
+        "statsError": "Los videos se sincronizaron, pero no se pudieron traer las stats de seguidores/likes: {error}",
         "connectSuccess": "TikTok conectado.",
         "connectError": "No se pudo conectar TikTok ({error})."
       }
