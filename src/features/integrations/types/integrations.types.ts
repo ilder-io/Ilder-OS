@@ -1,9 +1,9 @@
-import type { Platform } from "@/types";
+import type { ConnectionPlatform } from "@/types";
 
 /** Non-secret view of a connection — safe to send to the client. Never
  *  includes the token itself; see PlatformConnectionSecrets for that. */
 export interface PlatformConnectionStatusDTO {
-  platform: Platform;
+  platform: ConnectionPlatform;
   connected: boolean;
   externalAccountId: string | null;
   lastSyncedAt: string | null;

@@ -1,6 +1,6 @@
 import { db } from "@/lib/core/db";
 import { encrypt, decrypt } from "@/lib/core/crypto";
-import type { Platform } from "@/types";
+import type { ConnectionPlatform } from "@/types";
 import type { PlatformConnectionStatusDTO, PlatformConnectionSecrets } from "@/features/integrations/types/integrations.types";
 
 export interface UpsertConnectionInput {
@@ -11,14 +11,14 @@ export interface UpsertConnectionInput {
 }
 
 export interface IntegrationsRepository {
-  getStatus(workspaceId: string, platform: Platform): Promise<PlatformConnectionStatusDTO>;
-  getSecrets(workspaceId: string, platform: Platform): Promise<PlatformConnectionSecrets | null>;
-  upsert(workspaceId: string, platform: Platform, data: UpsertConnectionInput): Promise<void>;
-  markSynced(workspaceId: string, platform: Platform): Promise<void>;
+  getStatus(workspaceId: string, platform: ConnectionPlatform): Promise<PlatformConnectionStatusDTO>;
+  getSecrets(workspaceId: string, platform: ConnectionPlatform): Promise<PlatformConnectionSecrets | null>;
+  upsert(workspaceId: string, platform: ConnectionPlatform, data: UpsertConnectionInput): Promise<void>;
+  markSynced(workspaceId: string, platform: ConnectionPlatform): Promise<void>;
 }
 
 export class PrismaIntegrationsRepository implements IntegrationsRepository {
-  async getStatus(workspaceId: string, platform: Platform): Promise<PlatformConnectionStatusDTO> {
+  async getStatus(workspaceId: string, platform: ConnectionPlatform): Promise<PlatformConnectionStatusDTO> {
     const row = await db.platformConnection.findUnique({
       where: { workspaceId_platform: { workspaceId, platform } },
     });
@@ -30,7 +30,7 @@ export class PrismaIntegrationsRepository implements IntegrationsRepository {
     };
   }
 
-  async getSecrets(workspaceId: string, platform: Platform): Promise<PlatformConnectionSecrets | null> {
+  async getSecrets(workspaceId: string, platform: ConnectionPlatform): Promise<PlatformConnectionSecrets | null> {
     const row = await db.platformConnection.findUnique({
       where: { workspaceId_platform: { workspaceId, platform } },
     });
@@ -42,7 +42,7 @@ export class PrismaIntegrationsRepository implements IntegrationsRepository {
     };
   }
 
-  async upsert(workspaceId: string, platform: Platform, data: UpsertConnectionInput): Promise<void> {
+  async upsert(workspaceId: string, platform: ConnectionPlatform, data: UpsertConnectionInput): Promise<void> {
     const accessTokenEnc = encrypt(data.accessToken);
     const refreshTokenEnc = data.refreshToken ? encrypt(data.refreshToken) : null;
 
@@ -65,7 +65,7 @@ export class PrismaIntegrationsRepository implements IntegrationsRepository {
     });
   }
 
-  async markSynced(workspaceId: string, platform: Platform): Promise<void> {
+  async markSynced(workspaceId: string, platform: ConnectionPlatform): Promise<void> {
     await db.platformConnection.updateMany({
       where: { workspaceId, platform },
       data: { lastSyncedAt: new Date() },

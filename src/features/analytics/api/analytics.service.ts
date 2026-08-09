@@ -1,7 +1,7 @@
-import { analyticsRepository } from "@/features/analytics/api/analytics.repository";
+import { analyticsRepository, type RecordSnapshotInput } from "@/features/analytics/api/analytics.repository";
 import { contentService } from "@/features/content/api/content.service";
 import { clamp } from "@/lib/utils";
-import type { TrendPoint } from "@/types";
+import type { TrendPoint, ConnectionPlatform } from "@/types";
 import type { BarDatum } from "@/components/charts/comparison-bar-chart";
 import type { HeatmapPoint, SeriesAggregate } from "@/features/analytics/types/analytics.types";
 import type { ContentItemDTO } from "@/features/content/types/content.types";
@@ -45,6 +45,10 @@ async function getPublishedItems(workspaceId: string, days?: number): Promise<Co
 }
 
 export const analyticsService = {
+  async recordSnapshot(workspaceId: string, platform: ConnectionPlatform, data: RecordSnapshotInput): Promise<void> {
+    return analyticsRepository.recordSnapshot(workspaceId, platform, data);
+  },
+
   async getFollowerGrowth(workspaceId: string, days = 90): Promise<TrendPoint[]> {
     const rows = await analyticsRepository.getSnapshotSeries(workspaceId, days);
     return bucketByDate(rows, (r) => r.capturedAt, (r) => r.followers);

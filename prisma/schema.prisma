@@ -75,20 +75,20 @@ model Workspace {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  members         WorkspaceMember[]
-  contentItems    ContentItem[]
-  pillars         Pillar[]
-  series          Series[]
-  analyticsSnaps  AnalyticsSnapshot[]
-  objectives      Objective[]
-  quarters        Quarter[]
-  sprints         Sprint[]
-  weeklyReviews   WeeklyReview[]
-  monthlyReviews  MonthlyReview[]
-  products        Product[]
-  ideas           Idea[]
-  insights        AIInsight[]
-  knowledgeDocs   KnowledgeDoc[]
+  members             WorkspaceMember[]
+  contentItems        ContentItem[]
+  pillars             Pillar[]
+  series              Series[]
+  analyticsSnaps      AnalyticsSnapshot[]
+  objectives          Objective[]
+  quarters            Quarter[]
+  sprints             Sprint[]
+  weeklyReviews       WeeklyReview[]
+  monthlyReviews      MonthlyReview[]
+  products            Product[]
+  ideas               Idea[]
+  insights            AIInsight[]
+  knowledgeDocs       KnowledgeDoc[]
   platformConnections PlatformConnection[]
 
   @@map("workspaces")
@@ -165,6 +165,19 @@ enum Platform {
   BLOG
 }
 
+/// Which *connected account* a PlatformConnection/AnalyticsSnapshot belongs
+/// to — distinct from `Platform` above, which classifies individual
+/// ContentItems. One OAuth connection to Instagram yields both
+/// INSTAGRAM_REEL and INSTAGRAM_POST content, so account-level state can't
+/// reuse the content-level enum without double-counting stats per platform.
+enum ConnectionPlatform {
+  TIKTOK
+  INSTAGRAM
+  YOUTUBE
+  X
+  LINKEDIN
+}
+
 enum ContentStatus {
   IDEA
   SCRIPTING
@@ -187,11 +200,11 @@ model ContentItem {
   pillarId String?
   seriesId String?
 
-  hook          String?
-  cta           String?
-  script        String?
-  durationSecs  Int?
-  thumbnailUrl  String?
+  hook         String?
+  cta          String?
+  script       String?
+  durationSecs Int?
+  thumbnailUrl String?
 
   /// External platform id (e.g. a TikTok video id) — set when this item was
   /// created or matched by a platform sync job, so re-syncing updates the
@@ -201,9 +214,9 @@ model ContentItem {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  workspace Workspace             @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
-  pillar    Pillar?               @relation(fields: [pillarId], references: [id])
-  series    Series?               @relation(fields: [seriesId], references: [id])
+  workspace Workspace               @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  pillar    Pillar?                 @relation(fields: [pillarId], references: [id])
+  series    Series?                 @relation(fields: [seriesId], references: [id])
   metrics   ContentMetricSnapshot[]
 
   @@unique([workspaceId, platform, externalId])
@@ -220,15 +233,15 @@ model ContentMetricSnapshot {
   contentItemId String
   capturedAt    DateTime @default(now())
 
-  views              Int   @default(0)
-  likes              Int   @default(0)
-  comments           Int   @default(0)
-  shares             Int   @default(0)
-  saves              Int   @default(0)
-  followersGenerated Int   @default(0)
-  watchTimeMinutes   Float @default(0)
-  retentionPct       Float?  // 0-100, avg % of video watched
-  profileVisits      Int   @default(0)
+  views              Int    @default(0)
+  likes              Int    @default(0)
+  comments           Int    @default(0)
+  shares             Int    @default(0)
+  saves              Int    @default(0)
+  followersGenerated Int    @default(0)
+  watchTimeMinutes   Float  @default(0)
+  retentionPct       Float? // 0-100, avg % of video watched
+  profileVisits      Int    @default(0)
   conversionRatePct  Float? // profileVisits -> followersGenerated, 0-100
 
   contentItem ContentItem @relation(fields: [contentItemId], references: [id], onDelete: Cascade)
@@ -244,19 +257,23 @@ model ContentMetricSnapshot {
 /// Daily account-level snapshot per platform: followers, totals. Same
 /// append-only pattern as ContentMetricSnapshot, one level up.
 model AnalyticsSnapshot {
-  id          String   @id @default(cuid())
+  id          String             @id @default(cuid())
   workspaceId String
-  platform    Platform
-  capturedAt  DateTime @default(now())
+  platform    ConnectionPlatform
+  /// Always written truncated to UTC midnight — one row per platform per
+  /// calendar day, so a sync job can safely run more than once a day
+  /// (upserted, not duplicated) and cross-platform totals can be summed by
+  /// this exact value without a separate date-truncation step.
+  capturedAt  DateTime           @default(now())
 
-  followers     Int   @default(0)
-  totalViews    Int   @default(0)
-  totalLikes    Int   @default(0)
+  followers     Int    @default(0)
+  totalViews    Int    @default(0)
+  totalLikes    Int    @default(0)
   engagementPct Float?
 
   workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 
-  @@index([workspaceId, platform, capturedAt])
+  @@unique([workspaceId, platform, capturedAt])
   @@map("analytics_snapshots")
 }
 
@@ -268,7 +285,7 @@ model Quarter {
   id          String   @id @default(cuid())
   workspaceId String
   year        Int
-  quarter     Int      // 1-4
+  quarter     Int // 1-4
   theme       String?
   startsAt    DateTime
   endsAt      DateTime
@@ -347,8 +364,8 @@ model Sprint {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  workspace   Workspace    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
-  quarter     Quarter?     @relation(fields: [quarterId], references: [id])
+  workspace   Workspace      @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  quarter     Quarter?       @relation(fields: [quarterId], references: [id])
   tasks       SprintTask[]
   metrics     SprintMetric[]
   actionItems ActionItem[]
@@ -378,7 +395,7 @@ model SprintTask {
 }
 
 model SprintMetric {
-  id       String @id @default(cuid())
+  id       String  @id @default(cuid())
   sprintId String
   label    String
   target   String
@@ -390,10 +407,10 @@ model SprintMetric {
 }
 
 model ActionItem {
-  id       String   @id @default(cuid())
+  id       String    @id @default(cuid())
   sprintId String
   title    String
-  done     Boolean  @default(false)
+  done     Boolean   @default(false)
   dueAt    DateTime?
 
   sprint Sprint @relation(fields: [sprintId], references: [id], onDelete: Cascade)
@@ -454,7 +471,7 @@ model Product {
   description String?
   status      ProductStatus @default(CONCEPT)
   priceCents  Int?
-  mrr Int?
+  mrr         Int?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -510,7 +527,7 @@ model AIInsight {
   headline    String
   detail      String
   confidence  Float           @default(0.7) // 0-1
-  metricDelta Float?          // e.g. +0.31 for "+31%"
+  metricDelta Float? // e.g. +0.31 for "+31%"
   sourceModel String          @default("rules-engine@v1")
   pinned      Boolean         @default(false)
   dismissedAt DateTime?
@@ -549,9 +566,9 @@ model KnowledgeDoc {
 /// are encrypted at rest (AES-256-GCM, see src/lib/core/crypto.ts) — this
 /// column never holds a usable token in plaintext, only ciphertext.
 model PlatformConnection {
-  id          String   @id @default(cuid())
+  id          String             @id @default(cuid())
   workspaceId String
-  platform    Platform
+  platform    ConnectionPlatform
 
   /// The platform's own user/account id (e.g. TikTok's open_id) — lets a
   /// re-connect detect "same account" vs "different account".

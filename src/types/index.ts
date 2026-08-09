@@ -28,6 +28,12 @@ export const PLATFORM_VALUES = [
 ] as const;
 export type Platform = (typeof PLATFORM_VALUES)[number];
 
+/** Which *connected account* — distinct from Platform above, which
+ *  classifies individual content items. See ConnectionPlatform in
+ *  schema.prisma for why these can't share one enum. */
+export const CONNECTION_PLATFORM_VALUES = ["TIKTOK", "INSTAGRAM", "YOUTUBE", "X", "LINKEDIN"] as const;
+export type ConnectionPlatform = (typeof CONNECTION_PLATFORM_VALUES)[number];
+
 export const CONTENT_STATUS_VALUES = [
   "IDEA",
   "SCRIPTING",
