@@ -4,6 +4,7 @@ import { OKRStatusBadge } from "@/components/shared/status-badge";
 import { Progress } from "@/components/ui/progress";
 import { ObjectiveDeleteButton } from "@/features/okrs/components/objective-delete-button";
 import { KeyResultDeleteButton } from "@/features/okrs/components/key-result-delete-button";
+import { KeyResultProgressInput } from "@/features/okrs/components/key-result-progress-input";
 import { withProgress, type ObjectiveDTO } from "@/features/okrs/types/okrs.types";
 
 export async function ObjectiveCard({ objective }: { objective: ObjectiveDTO }) {
@@ -28,8 +29,9 @@ export async function ObjectiveCard({ objective }: { objective: ObjectiveDTO }) 
               <div className="flex items-center justify-between gap-2">
                 <span className="text-xs text-foreground/90">{kr.title}</span>
                 <span className="flex items-center gap-1 shrink-0">
+                  <KeyResultProgressInput keyResultId={kr.id} currentValue={kr.currentValue} />
                   <span className="text-2xs font-mono text-muted-foreground">
-                    {t("krProgress", { current: kr.currentValue.toLocaleString(), target: kr.targetValue.toLocaleString(), unit: kr.unit })}
+                    {t("krProgressSuffix", { target: kr.targetValue.toLocaleString(), unit: kr.unit })}
                   </span>
                   <KeyResultDeleteButton keyResultId={kr.id} />
                 </span>

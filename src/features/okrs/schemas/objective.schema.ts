@@ -15,3 +15,9 @@ export const objectiveSchema = z.object({
 
 export type ObjectiveFormValues = z.infer<typeof objectiveSchema>;
 export type KeyResultInput = z.infer<typeof keyResultInputSchema>;
+
+export const keyResultProgressSchema = z.object({
+  currentValue: z.coerce.number().min(0, "Must be 0 or greater"),
+});
+
+export type KeyResultProgressValues = z.infer<typeof keyResultProgressSchema>;

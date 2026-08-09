@@ -1,13 +1,18 @@
 import { db } from "@/lib/core/db";
 import type { Prisma } from "@prisma/client";
-import type { QuarterDTO, ObjectiveDTO } from "@/features/okrs/types/okrs.types";
-import type { ObjectiveFormValues } from "@/features/okrs/schemas/objective.schema";
+import type { QuarterDTO, ObjectiveDTO, KeyResultDTO } from "@/features/okrs/types/okrs.types";
+import type { ObjectiveFormValues, KeyResultProgressValues } from "@/features/okrs/schemas/objective.schema";
 import type { QuarterFormValues } from "@/features/okrs/schemas/quarter.schema";
 
 export interface OKRRepository {
   listQuarters(workspaceId: string): Promise<QuarterDTO[]>;
   createObjective(workspaceId: string, data: ObjectiveFormValues): Promise<ObjectiveDTO>;
   deleteObjective(workspaceId: string, id: string): Promise<void>;
+  updateKeyResultProgress(
+    workspaceId: string,
+    keyResultId: string,
+    data: KeyResultProgressValues
+  ): Promise<KeyResultDTO | null>;
   deleteKeyResult(workspaceId: string, keyResultId: string): Promise<void>;
   createQuarter(workspaceId: string, data: QuarterFormValues): Promise<QuarterDTO>;
   deleteQuarter(workspaceId: string, id: string): Promise<void>;
@@ -29,20 +34,31 @@ const objectiveWithKeyResults = {
 
 type ObjectiveWithKeyResults = Prisma.ObjectiveGetPayload<typeof objectiveWithKeyResults>;
 
+function toKeyResultDTO(kr: {
+  id: string;
+  title: string;
+  targetValue: number;
+  currentValue: number;
+  unit: string;
+  status: ObjectiveWithKeyResults["keyResults"][number]["status"];
+}): KeyResultDTO {
+  return {
+    id: kr.id,
+    title: kr.title,
+    targetValue: kr.targetValue,
+    currentValue: kr.currentValue,
+    unit: kr.unit,
+    status: kr.status,
+  };
+}
+
 function toObjectiveDTO(row: ObjectiveWithKeyResults): ObjectiveDTO {
   return {
     id: row.id,
     title: row.title,
     description: row.description ?? "",
     status: row.status,
-    keyResults: row.keyResults.map((kr) => ({
-      id: kr.id,
-      title: kr.title,
-      targetValue: kr.targetValue,
-      currentValue: kr.currentValue,
-      unit: kr.unit,
-      status: kr.status,
-    })),
+    keyResults: row.keyResults.map(toKeyResultDTO),
   };
 }
 
@@ -94,6 +110,20 @@ export class PrismaOKRRepository implements OKRRepository {
 
   async deleteObjective(workspaceId: string, id: string): Promise<void> {
     await db.objective.deleteMany({ where: { id, workspaceId } });
+  }
+
+  async updateKeyResultProgress(
+    workspaceId: string,
+    keyResultId: string,
+    data: KeyResultProgressValues
+  ): Promise<KeyResultDTO | null> {
+    const { count } = await db.keyResult.updateMany({
+      where: { id: keyResultId, objective: { workspaceId } },
+      data: { currentValue: data.currentValue },
+    });
+    if (count === 0) return null;
+    const row = await db.keyResult.findUnique({ where: { id: keyResultId } });
+    return row ? toKeyResultDTO(row) : null;
   }
 
   async deleteKeyResult(workspaceId: string, keyResultId: string): Promise<void> {
