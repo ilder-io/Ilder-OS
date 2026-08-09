@@ -46,7 +46,11 @@
       "Bash(node -e \"console.log\\(require\\('crypto'\\).randomBytes\\(32\\).toString\\('hex'\\)\\)\")",
       "Bash(node -e \"console.log\\('0a312524ca2b7f9c19b76fa606f003c81c39798256694de5e9a881714614c1'.length\\)\")",
       "Bash(node -e \"const k = require\\('crypto'\\).randomBytes\\(32\\).toString\\('hex'\\); console.log\\(k\\); console.log\\('LENGTH:' + k.length\\)\")",
-      "Bash(rm -f prisma/_verify_tiktok_connect.ts prisma/_verify_tiktok_flow.ts)"
+      "Bash(rm -f prisma/_verify_tiktok_connect.ts prisma/_verify_tiktok_flow.ts)",
+      "Bash(mkdir -p public && cp \"D:/MARCA_PERSONAL/tiktokphyBZtuKLOBa5Pkhw7AszybRPsyPW0sy.txt\" \"public/tiktokphyBZtuKLOBa5Pkhw7AszybRPsyPW0sy.txt\" && cat \"public/tiktokphyBZtuKLOBa5Pkhw7AszybRPsyPW0sy.txt\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
     ]
   }
 }
