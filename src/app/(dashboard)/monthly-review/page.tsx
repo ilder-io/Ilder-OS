@@ -2,10 +2,11 @@ import { getTranslations } from "next-intl/server";
 import { Topbar } from "@/components/layout/topbar";
 import { PageHeader } from "@/components/shared/page-header";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { reviewsService } from "@/features/reviews/api/reviews.service";
 import { getDemoWorkspaceId } from "@/lib/core/workspace";
-import { Plus, TrendingUp, TrendingDown, Target } from "lucide-react";
+import { NewMonthlyReviewButton } from "@/features/reviews/components/new-monthly-review-button";
+import { MonthlyReviewDeleteButton } from "@/features/reviews/components/monthly-review-delete-button";
+import { TrendingUp, TrendingDown, Target } from "lucide-react";
 
 export default async function MonthlyReviewPage() {
   const workspaceId = await getDemoWorkspaceId();
@@ -18,14 +19,17 @@ export default async function MonthlyReviewPage() {
         <PageHeader
           title={t("pageTitle")}
           description={t("pageDescription")}
-          actions={<Button size="sm"><Plus className="h-4 w-4" />{t("newReview")}</Button>}
+          actions={<NewMonthlyReviewButton />}
         />
 
         {reviews.map((r) => (
           <Card key={r.id}>
-            <CardHeader>
-              <CardTitle>{r.monthLabel}</CardTitle>
-              <CardDescription>{r.summary}</CardDescription>
+            <CardHeader className="flex-row items-center justify-between space-y-0">
+              <div>
+                <CardTitle>{r.monthLabel}</CardTitle>
+                <CardDescription>{r.summary}</CardDescription>
+              </div>
+              <MonthlyReviewDeleteButton id={r.id} />
             </CardHeader>
             <CardContent className="grid md:grid-cols-3 gap-4">
               <div>

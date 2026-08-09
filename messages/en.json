@@ -349,7 +349,25 @@
     "newReview": "New review",
     "wins": "Wins",
     "challenges": "Challenges",
-    "focusNext": "Focus next"
+    "focusNext": "Focus next",
+    "confirmDelete": "Delete this weekly review? This can't be undone.",
+    "toastDeleted": "Weekly review deleted",
+    "form": {
+      "title": "New weekly review",
+      "description": "Pick the week — submitting again for the same week edits it instead of duplicating.",
+      "weekStartLabel": "Week starting",
+      "winsLabel": "Wins (one per line)",
+      "winsPlaceholder": "Shipped the new landing page…",
+      "challengesLabel": "Challenges (one per line)",
+      "challengesPlaceholder": "Fell behind on the sprint…",
+      "focusNextLabel": "Focus next (one per line)",
+      "focusNextPlaceholder": "Ship the onboarding flow…",
+      "cancel": "Cancel",
+      "creating": "Saving…",
+      "create": "Save review",
+      "toastCreated": "Weekly review saved",
+      "toastError": "Something went wrong. Try again."
+    }
   },
   "monthlyReview": {
     "pageTitle": "Monthly Review",
@@ -357,7 +375,27 @@
     "newReview": "New review",
     "highlights": "Highlights",
     "lowlights": "Lowlights",
-    "nextFocus": "Next focus"
+    "nextFocus": "Next focus",
+    "confirmDelete": "Delete this monthly review? This can't be undone.",
+    "toastDeleted": "Monthly review deleted",
+    "form": {
+      "title": "New monthly review",
+      "description": "Pick the month — submitting again for the same month edits it instead of duplicating.",
+      "monthStartLabel": "Month",
+      "summaryLabel": "Summary",
+      "summaryPlaceholder": "One or two sentences on how the month went…",
+      "highlightsLabel": "Highlights (one per line)",
+      "highlightsPlaceholder": "Crossed 10K followers…",
+      "lowlightsLabel": "Lowlights (one per line)",
+      "lowlightsPlaceholder": "Missed the launch date…",
+      "nextFocusLabel": "Next focus (one per line)",
+      "nextFocusPlaceholder": "Double down on short-form…",
+      "cancel": "Cancel",
+      "creating": "Saving…",
+      "create": "Save review",
+      "toastCreated": "Monthly review saved",
+      "toastError": "Something went wrong. Try again."
+    }
   },
   "products": {
     "pageTitle": "Products",
@@ -428,7 +466,27 @@
   "knowledgeBase": {
     "pageTitle": "Knowledge Base",
     "pageDescription": "The playbooks, checklists, and standards that keep quality consistent as you scale.",
-    "newDoc": "New doc"
+    "newDoc": "New doc",
+    "confirmDelete": "Delete this doc? This can't be undone.",
+    "toastDeleted": "Doc deleted",
+    "form": {
+      "newTitle": "New doc",
+      "editTitle": "Edit doc",
+      "description": "Playbooks, checklists, and standards — anything worth writing down once.",
+      "titleLabel": "Title",
+      "titlePlaceholder": "Thumbnail checklist",
+      "contentLabel": "Content",
+      "contentPlaceholder": "Write the doc…",
+      "tagsLabel": "Tags (comma-separated)",
+      "tagsPlaceholder": "content, checklist",
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "create": "Create doc",
+      "saveChanges": "Save changes",
+      "toastCreated": "Doc created",
+      "toastUpdated": "Doc updated",
+      "toastError": "Something went wrong. Try again."
+    }
   },
   "settings": {
     "pageTitle": "Settings",

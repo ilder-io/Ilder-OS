@@ -1,10 +1,15 @@
 import { db } from "@/lib/core/db";
 import type { WeeklyReview, MonthlyReview } from "@prisma/client";
 import type { WeeklyReviewDTO, MonthlyReviewDTO } from "@/features/reviews/types/reviews.types";
+import type { WeeklyReviewFormValues, MonthlyReviewFormValues } from "@/features/reviews/schemas/review.schema";
 
 export interface ReviewsRepository {
   listWeekly(workspaceId: string): Promise<WeeklyReviewDTO[]>;
   listMonthly(workspaceId: string): Promise<MonthlyReviewDTO[]>;
+  createWeekly(workspaceId: string, data: WeeklyReviewFormValues): Promise<WeeklyReviewDTO>;
+  createMonthly(workspaceId: string, data: MonthlyReviewFormValues): Promise<MonthlyReviewDTO>;
+  deleteWeekly(workspaceId: string, id: string): Promise<void>;
+  deleteMonthly(workspaceId: string, id: string): Promise<void>;
 }
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -63,6 +68,55 @@ export class PrismaReviewsRepository implements ReviewsRepository {
       orderBy: { monthStart: "desc" },
     });
     return rows.map(toMonthlyReviewDTO);
+  }
+
+  /** Upserted by (workspaceId, weekStart) — resubmitting the form for a
+   *  week that already has an entry edits it in place instead of erroring
+   *  on the unique constraint. */
+  async createWeekly(workspaceId: string, data: WeeklyReviewFormValues): Promise<WeeklyReviewDTO> {
+    const weekStart = new Date(`${data.weekStart}T00:00:00.000Z`);
+    const row = await db.weeklyReview.upsert({
+      where: { workspaceId_weekStart: { workspaceId, weekStart } },
+      update: { wins: data.wins || null, challenges: data.challenges || null, focusNext: data.focusNext || null },
+      create: {
+        workspaceId,
+        weekStart,
+        wins: data.wins || null,
+        challenges: data.challenges || null,
+        focusNext: data.focusNext || null,
+      },
+    });
+    return toWeeklyReviewDTO(row);
+  }
+
+  async createMonthly(workspaceId: string, data: MonthlyReviewFormValues): Promise<MonthlyReviewDTO> {
+    const monthStart = new Date(`${data.monthStart}-01T00:00:00.000Z`);
+    const row = await db.monthlyReview.upsert({
+      where: { workspaceId_monthStart: { workspaceId, monthStart } },
+      update: {
+        summary: data.summary || null,
+        highlights: data.highlights || null,
+        lowlights: data.lowlights || null,
+        nextFocus: data.nextFocus || null,
+      },
+      create: {
+        workspaceId,
+        monthStart,
+        summary: data.summary || null,
+        highlights: data.highlights || null,
+        lowlights: data.lowlights || null,
+        nextFocus: data.nextFocus || null,
+      },
+    });
+    return toMonthlyReviewDTO(row);
+  }
+
+  async deleteWeekly(workspaceId: string, id: string): Promise<void> {
+    await db.weeklyReview.deleteMany({ where: { id, workspaceId } });
+  }
+
+  async deleteMonthly(workspaceId: string, id: string): Promise<void> {
+    await db.monthlyReview.deleteMany({ where: { id, workspaceId } });
   }
 }
 

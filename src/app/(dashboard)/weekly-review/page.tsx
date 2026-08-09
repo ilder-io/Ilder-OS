@@ -2,10 +2,11 @@ import { getTranslations } from "next-intl/server";
 import { Topbar } from "@/components/layout/topbar";
 import { PageHeader } from "@/components/shared/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { reviewsService } from "@/features/reviews/api/reviews.service";
 import { getDemoWorkspaceId } from "@/lib/core/workspace";
-import { CheckCircle2, AlertTriangle, ArrowRight, Plus } from "lucide-react";
+import { NewWeeklyReviewButton } from "@/features/reviews/components/new-weekly-review-button";
+import { WeeklyReviewDeleteButton } from "@/features/reviews/components/weekly-review-delete-button";
+import { CheckCircle2, AlertTriangle, ArrowRight } from "lucide-react";
 
 export default async function WeeklyReviewPage() {
   const workspaceId = await getDemoWorkspaceId();
@@ -18,13 +19,16 @@ export default async function WeeklyReviewPage() {
         <PageHeader
           title={t("pageTitle")}
           description={t("pageDescription")}
-          actions={<Button size="sm"><Plus className="h-4 w-4" />{t("newReview")}</Button>}
+          actions={<NewWeeklyReviewButton />}
         />
 
         <div className="space-y-4">
           {reviews.map((r) => (
             <Card key={r.id}>
-              <CardHeader><CardTitle>{r.weekLabel}</CardTitle></CardHeader>
+              <CardHeader className="flex-row items-center justify-between space-y-0">
+                <CardTitle>{r.weekLabel}</CardTitle>
+                <WeeklyReviewDeleteButton id={r.id} />
+              </CardHeader>
               <CardContent className="grid md:grid-cols-3 gap-4">
                 <div>
                   <p className="flex items-center gap-1.5 text-2xs font-medium text-success mb-2">

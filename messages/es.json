@@ -349,7 +349,25 @@
     "newReview": "Nueva revisión",
     "wins": "Logros",
     "challenges": "Desafíos",
-    "focusNext": "Enfoque siguiente"
+    "focusNext": "Enfoque siguiente",
+    "confirmDelete": "¿Eliminar esta revisión semanal? No se puede deshacer.",
+    "toastDeleted": "Revisión semanal eliminada",
+    "form": {
+      "title": "Nueva revisión semanal",
+      "description": "Elegí la semana — volver a enviarla para la misma semana la edita en vez de duplicarla.",
+      "weekStartLabel": "Semana que empieza",
+      "winsLabel": "Logros (uno por línea)",
+      "winsPlaceholder": "Lancé la nueva landing page…",
+      "challengesLabel": "Desafíos (uno por línea)",
+      "challengesPlaceholder": "Me atrasé con el sprint…",
+      "focusNextLabel": "Enfoque siguiente (uno por línea)",
+      "focusNextPlaceholder": "Lanzar el flujo de onboarding…",
+      "cancel": "Cancelar",
+      "creating": "Guardando…",
+      "create": "Guardar revisión",
+      "toastCreated": "Revisión semanal guardada",
+      "toastError": "Algo salió mal. Intenta de nuevo."
+    }
   },
   "monthlyReview": {
     "pageTitle": "Revisión mensual",
@@ -357,7 +375,27 @@
     "newReview": "Nueva revisión",
     "highlights": "Aspectos destacados",
     "lowlights": "Aspectos débiles",
-    "nextFocus": "Próximo enfoque"
+    "nextFocus": "Próximo enfoque",
+    "confirmDelete": "¿Eliminar esta revisión mensual? No se puede deshacer.",
+    "toastDeleted": "Revisión mensual eliminada",
+    "form": {
+      "title": "Nueva revisión mensual",
+      "description": "Elegí el mes — volver a enviarlo para el mismo mes lo edita en vez de duplicarlo.",
+      "monthStartLabel": "Mes",
+      "summaryLabel": "Resumen",
+      "summaryPlaceholder": "Una o dos frases sobre cómo fue el mes…",
+      "highlightsLabel": "Aspectos destacados (uno por línea)",
+      "highlightsPlaceholder": "Superé los 10K seguidores…",
+      "lowlightsLabel": "Aspectos débiles (uno por línea)",
+      "lowlightsPlaceholder": "Me perdí la fecha de lanzamiento…",
+      "nextFocusLabel": "Próximo enfoque (uno por línea)",
+      "nextFocusPlaceholder": "Apostar más fuerte al formato corto…",
+      "cancel": "Cancelar",
+      "creating": "Guardando…",
+      "create": "Guardar revisión",
+      "toastCreated": "Revisión mensual guardada",
+      "toastError": "Algo salió mal. Intenta de nuevo."
+    }
   },
   "products": {
     "pageTitle": "Productos",
@@ -428,7 +466,27 @@
   "knowledgeBase": {
     "pageTitle": "Base de conocimiento",
     "pageDescription": "Los manuales, checklists y estándares que mantienen la calidad consistente a medida que creces.",
-    "newDoc": "Nuevo documento"
+    "newDoc": "Nuevo documento",
+    "confirmDelete": "¿Eliminar este documento? No se puede deshacer.",
+    "toastDeleted": "Documento eliminado",
+    "form": {
+      "newTitle": "Nuevo documento",
+      "editTitle": "Editar documento",
+      "description": "Manuales, checklists y estándares — cualquier cosa que valga la pena documentar una vez.",
+      "titleLabel": "Título",
+      "titlePlaceholder": "Checklist de miniaturas",
+      "contentLabel": "Contenido",
+      "contentPlaceholder": "Escribí el documento…",
+      "tagsLabel": "Etiquetas (separadas por coma)",
+      "tagsPlaceholder": "contenido, checklist",
+      "cancel": "Cancelar",
+      "saving": "Guardando…",
+      "create": "Crear documento",
+      "saveChanges": "Guardar cambios",
+      "toastCreated": "Documento creado",
+      "toastUpdated": "Documento actualizado",
+      "toastError": "Algo salió mal. Intenta de nuevo."
+    }
   },
   "settings": {
     "pageTitle": "Configuración",
